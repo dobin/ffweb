@@ -1,0 +1,25 @@
+{% extends 'crashviewer/base.html' %}
+
+
+{% block content %}
+	<div>
+		<h1>Name: <a href="{% url 'project_detail' pk=project.pk %}">
+			{{ project.name }}
+		</a></h1>
+		Comment: <p>{{ project.comment|linebreaksbr }}</p>
+		<hr>
+	</div>
+
+	{% for crashData in crashDataList %}
+		<div>
+		Seed: {{crashData.seed}} <br>
+		Offset: {{crashData.offset}} <br>
+		Module: {{crashData.module}} <br>
+		Signal: {{crashData.signal}} <br>
+		Asanoutput: {{crashData.asanoutput}} <br>
+		Time: {{crashData.time}} <br>
+		Stdout: {{crashData.stdout}} <br>
+		<hr>
+		</div>
+	{% endfor %}
+{% endblock %}

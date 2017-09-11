@@ -1,0 +1,18 @@
+CrashData.objects.create(seed="1234", offset=1337, module="Test module", signal=9, asanOutput = "test asan output", time=timezone.now(), stdout="test stdout", filename="/bla/shit/xxx.pickle", )
+
+
+from crashviewer.models import Project, CrashData, NetworkMessage
+Project.objects.all()
+
+Project.objects.create(name="Initial Test", comment="Testing")
+p = Project.objects.get(name = "Initial Test")
+
+from django.utils import timezone
+
+c = CrashData.objects.create(seed="1234", offset=1337, module="Test module", signal=9, asanoutput = "test asan output", time=timezone.now(), stdout="test stdout", filename="/bla/shit/xxx.pickle", project = p)
+
+m = NetworkMessage.objects.create(crashData = c, index=0, sentBy = "cli", msg = "Message 0 - cli", fuzzed = 0)
+
+
+
+
