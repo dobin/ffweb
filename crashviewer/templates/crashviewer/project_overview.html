@@ -3,10 +3,13 @@
 {% block content %}
 	{% for project in projects %}
 	    <div>
-			<h1>Name: <a href="{% url 'project_detail' pk=project.pk %}">
+			<h1><a href="{% url 'project_detail' pk=project.pk %}">
 				{{ project.name }}
 			</a></h1>
-	        Comment: <p>{{ project.comment|linebreaksbr }}</p>
+			Comment:
+			<div>
+	        	{{ project.comment|linebreaksbr }}
+			</div>
 	    </div>
 	{% endfor %}
 {% endblock %}

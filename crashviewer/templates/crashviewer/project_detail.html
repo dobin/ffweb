@@ -1,9 +1,8 @@
 {% extends 'crashviewer/base.html' %}
 
-
 {% block content %}
 	<div>
-		<h1>Name: <a href="{% url 'project_detail' pk=project.pk %}">
+		<h1><a href="{% url 'project_detail' pk=project.pk %}">
 			{{ project.name }}
 		</a></h1>
 		Comment: <p>{{ project.comment|linebreaksbr }}</p>
