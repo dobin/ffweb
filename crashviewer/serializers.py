@@ -10,15 +10,25 @@ class NetworkMessageSerializer(serializers.ModelSerializer):
 
 
 class CrashDataSerializer(serializers.ModelSerializer):
-    messageList = NetworkMessageSerializer(many=True, read_only=True)
+    messageList = NetworkMessageSerializer(many=True)
 
     class Meta:
         model = CrashData
         fields = ('seed', 'offset', 'module', 'signal', 'asanoutput', 'time', 'stdout', 'filename', 'project', 'messageList')
 
 
+    def create(self, validated_data):
+        messageList_data = validated_data.pop('messageList')
+
+        crashData = CrashData.objects.create(**validated_data)
+        for message in messageList_data:
+            NetworkMessage.objects.create(crashData=crashData, **message)
+        return crashData
+
+
+
 class ProjectSerializer(serializers.ModelSerializer):
-    crashDataList = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    crashDataList = CrashDataSerializer(many=True, read_only=True)
 
     class Meta:
         model = Project

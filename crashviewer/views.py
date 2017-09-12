@@ -31,7 +31,7 @@ def project_detail(request, pk):
 @api_view(['GET', 'POST'])
 def project_list_api(request):
     """
-    List all crashviewer, or create a new project.
+    List all project, or create a new project.
     """
     if request.method == 'GET':
         crashviewer = Project.objects.all()
@@ -47,7 +47,7 @@ def project_list_api(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def project_list_api(request, pk):
+def project_detail_api(request, pk):
     """
     Retrieve, update or delete a project instance.
     """
@@ -65,6 +65,7 @@ def project_list_api(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
@@ -74,7 +75,7 @@ def project_list_api(request, pk):
 
 
 @api_view(['GET', 'POST'])
-def crashdata_list(request):
+def crashdata_list_api(request):
     """
     List all crashviewer, or create a new crashdata.
     """
@@ -92,7 +93,7 @@ def crashdata_list(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def crashdata_detail(request, pk):
+def crashdata_detail_api(request, pk):
     """
     Retrieve, update or delete a crashdata instance.
     """
