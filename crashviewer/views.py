@@ -12,15 +12,21 @@ from crashviewer.serializers import CrashDataSerializer
 
 from .models import Project
 from .models import CrashData
+from .models import CrashDataTable
+
 
 def project_overview(request):
     projects = Project.objects.order_by('name')
     return render(request, 'crashviewer/project_overview.html', { 'projects': projects})
 
+
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     crashDataList = project.crashDataList.all()
-    return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
+    crashDataTable = CrashDataTable(crashDataList)
+
+    return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList, 'crashDataTable': crashDataTable})
+
 
 @api_view(['GET', 'POST'])
 def project_list_api(request):

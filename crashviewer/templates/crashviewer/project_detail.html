@@ -1,6 +1,10 @@
 {% extends 'crashviewer/base.html' %}
+{% load render_table from django_tables2 %}
+
 
 {% block content %}
+
+<div class="row">
 	<div>
 		<h1><a href="{% url 'project_detail' pk=project.pk %}">
 			{{ project.name }}
@@ -8,17 +12,12 @@
 		Comment: <p>{{ project.comment|linebreaksbr }}</p>
 		<hr>
 	</div>
+</div>
 
-	{% for crashData in crashDataList %}
-		<div>
-		Seed: {{crashData.seed}} <br>
-		Offset: {{crashData.offset}} <br>
-		Module: {{crashData.module}} <br>
-		Signal: {{crashData.signal}} <br>
-		Asanoutput: {{crashData.asanoutput}} <br>
-		Time: {{crashData.time}} <br>
-		Stdout: {{crashData.stdout}} <br>
-		<hr>
-		</div>
-	{% endfor %}
+<div class="row">
+	<div class="col-md-12">
+		{% render_table crashDataTable %}
+	</div>
+</div>
+
 {% endblock %}
