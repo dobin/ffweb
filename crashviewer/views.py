@@ -12,7 +12,6 @@ from crashviewer.serializers import CrashDataSerializer
 
 from .models import Project
 from .models import CrashData
-from .models import CrashDataTable
 
 
 def project_overview(request):
@@ -23,9 +22,8 @@ def project_overview(request):
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     crashDataList = project.crashDataList.all()
-    crashDataTable = CrashDataTable(crashDataList)
 
-    return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList, 'crashDataTable': crashDataTable})
+    return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
 
 @api_view(['GET', 'POST'])
