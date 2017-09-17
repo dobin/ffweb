@@ -2,17 +2,39 @@ CrashData.objects.create(seed="1234", offset=1337, module="Test module", signal=
 
 
 from crashviewer.models import Project, CrashData, NetworkMessage
+from django.utils import timezone
+
 Project.objects.all()
 
 Project.objects.create(name="Initial Test", comment="Testing")
 p = Project.objects.get(name = "Initial Test")
 
-from django.utils import timezone
 
-c = CrashData.objects.create(seed="1234", offset=1337, module="Test module", signal=9, asanoutput = "test asan output", time=timezone.now(), stdout="test stdout", filename="/bla/shit/xxx.pickle", project = p)
+c = CrashData.objects.create(seed="12345678", offset=1337, module="Test module", signal=9, asanoutput = "test asan output", time=timezone.now(), stdout="test stdout", filename="/bla/shit/xxx.pickle", project = p)
 
 m = NetworkMessage.objects.create(crashData = c, index=0, sentBy = "cli", msg = "Message 0 - cli", fuzzed = 0)
+m = NetworkMessage.objects.create(crashData = c, index=1, sentBy = "cli", msg = "Message 1 - cli", fuzzed = 0)
+
+
+curl localhost:8000/projects/
+[{"name":"Initial Test","comment":"Testing"}
+
+
+curl localhost:8000/api/projects/1
+
+{"name":"Initial Test","comment":"Testing","crashDataList":[{"seed":"1234","offset":1337,"module":"Test module","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0,"crashData":1},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0,"crashData":1},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1,"crashData":1}]},{"seed":"12345678","offset":1337,"module":"Test module","signal":9,"asanoutput":"test asan output","time":"2017-09-11T19:08:28.167328Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0,"crashData":2},{"index":1,"sentBy":"cli","msg":"TWVzc2FnZSAxIC0gY2xp","fuzzed":0,"crashData":2}]}]}
+
+
+curl -X POST -H "Content-Type: application/json" -d '{"name":"Initial Test 2","comment":"Testing","crashDataList":[{"seed":"1234","offset":1337,"module":"Test module","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0,"crashData":1},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0,"crashData":1},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1,"crashData":1}]},{"seed":"12345678","offset":1337,"module":"Test module","signal":9,"asanoutput":"test asan output","time":"2017-09-11T19:08:28.167328Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0,"crashData":2},{"index":1,"sentBy":"cli","msg":"TWVzc2FnZSAxIC0gY2xp","fuzzed":0,"crashData":2}]}]}' localhost:8000/api/projects/
+
+
+curl localhost:8000/api/crashdata/1
+{"seed":"1234","offset":1337,"module":"Test module","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0,"crashData":1},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0,"crashData":1},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1,"crashData":1}]}
 
 
 
+curl -X POST -H "Content-Type: application/json" -d '{"seed":"1234","offset":1337,"module":"Test module _2_","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1}]}' localhost:8000/api/crashdata/
+
+
+curl -X POST -H "Content-Type: application/json" -d '{"seed":"Post2","offset":1337,"module":"Test module _2_","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1}]}' localhost:8000/api/crashdata/
 
