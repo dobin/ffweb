@@ -14,8 +14,9 @@ class CrashDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CrashData
-        fields = ('seed', 'offset', 'module', 'signal', 'asanoutput', 'time', 'stdout', 'filename', 'project', 'messageList')
-
+        fields = ('pk', 'seed', 'offset', 'module', 'signal',
+                  'asanoutput', 'time', 'stdout', 'filename',
+                  'project', 'messageList')
 
     def create(self, validated_data):
         messageList_data = validated_data.pop('messageList')
@@ -23,8 +24,8 @@ class CrashDataSerializer(serializers.ModelSerializer):
         crashData = CrashData.objects.create(**validated_data)
         for message in messageList_data:
             NetworkMessage.objects.create(crashData=crashData, **message)
-        return crashData
 
+        return crashData
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -32,4 +33,5 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('name', 'comment', 'crashDataList')
+        fields = ('pk', 'name', 'comment', 'crashDataList')
+        #fields = ('pk', 'name', 'comment')

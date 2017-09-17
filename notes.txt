@@ -32,9 +32,7 @@ curl localhost:8000/api/crashdata/1
 {"seed":"1234","offset":1337,"module":"Test module","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0,"crashData":1},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0,"crashData":1},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1,"crashData":1}]}
 
 
-
 curl -X POST -H "Content-Type: application/json" -d '{"seed":"1234","offset":1337,"module":"Test module _2_","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1}]}' localhost:8000/api/crashdata/
 
 
 curl -X POST -H "Content-Type: application/json" -d '{"seed":"Post2","offset":1337,"module":"Test module _2_","signal":9,"asanoutput":"test asan output","time":"2017-09-09T18:03:27.186711Z","stdout":"test stdout","filename":"/bla/shit/xxx.pickle","project":1,"messageList":[{"index":0,"sentBy":"cli","msg":"TWVzc2FnZSAwIC0gY2xp","fuzzed":0},{"index":1,"sentBy":"srv","msg":"TWVzc2FnZSAxIC0gc3J2","fuzzed":0},{"index":2,"sentBy":"cli","msg":"TWVzc2FnZSAyIC0gY2xpIC0gZnV6emVk","fuzzed":1}]}' localhost:8000/api/crashdata/
-

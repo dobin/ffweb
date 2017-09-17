@@ -2,12 +2,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework import mixins
+from rest_framework import generics
 
-
-from crashviewer.models import Project
 from crashviewer.serializers import ProjectSerializer
-
-from crashviewer.models import CrashData
 from crashviewer.serializers import CrashDataSerializer
 
 from .models import Project
@@ -26,91 +26,55 @@ def project_detail(request, pk):
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
 
-@api_view(['GET', 'POST'])
-def project_list_api(request):
-    """
-    List all project, or create a new project.
-    """
-    if request.method == 'GET':
-        crashviewer = Project.objects.all()
-        serializer = ProjectSerializer(crashviewer, many=True)
-        return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = ProjectSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ProjectList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        name = self.request.query_params.get('name', None)
+        if name is not None:
+            queryset = queryset.filter(name=name)
+        return queryset
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def project_detail_api(request, pk):
-    """
-    Retrieve, update or delete a project instance.
-    """
-    try:
-        project = Project.objects.get(pk=pk)
-    except Project.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
-    if request.method == 'GET':
-        serializer = ProjectSerializer(project)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = ProjectSerializer(project, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        project.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
+class ProjectDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
 
-@api_view(['GET', 'POST'])
-def crashdata_list_api(request):
-    """
-    List all crashviewer, or create a new crashdata.
-    """
-    if request.method == 'GET':
-        crashviewer = CrashData.objects.all()
-        serializer = CrashDataSerializer(crashviewer, many=True)
-        return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
-    elif request.method == 'POST':
-        serializer = CrashDataSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def crashdata_detail_api(request, pk):
-    """
-    Retrieve, update or delete a crashdata instance.
-    """
-    try:
-        crashdata = CrashData.objects.get(pk=pk)
-    except CrashData.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class CrashdataList(mixins.ListModelMixin,
+                    mixins.CreateModelMixin,
+                    generics.GenericAPIView):
 
-    if request.method == 'GET':
-        serializer = CrashDataSerializer(crashdata)
-        return Response(serializer.data)
+    serializer_class = CrashDataSerializer
 
-    elif request.method == 'PUT':
-        serializer = CrashDataSerializer(crashdata, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        crashdata.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)

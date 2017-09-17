@@ -4,3 +4,7 @@ h1 a {
 h1 {
     font-size: 2em;
 }
+
+.asanOutput {
+    display: none;
+}

@@ -1,0 +1,32 @@
+{
+    "project": 5,
+
+    "seed": "1234->3",
+    "offset": 1337,
+    "module": "Test module",
+    "signal": 9,
+    "time": "2017-09-09T18:03:27.186711Z",
+
+    "stdout": "test stdout",
+    "asanoutput": "test asan output",
+    "filename": "fuck",
+
+    "messageList": [
+		{
+	        "index": 0,
+	        "sentBy": "cli",
+	        "msg": "",
+	        "fuzzed": 0
+	    }, {
+	        "index": 1,
+	        "sentBy": "srv",
+	        "msg": "",
+	        "fuzzed": 0
+	    }, {
+	        "index": 2,
+	        "sentBy": "cli",
+	        "msg": "",
+	        "fuzzed": 1
+	    }
+	]
+}

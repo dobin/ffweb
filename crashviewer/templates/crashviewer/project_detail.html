@@ -13,10 +13,36 @@
 	</div>
 </div>
 
+{% for crashData in crashDataList %}
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-2">
+		{{ crashData.seed }}
+	</div>
+	<div class="col-md-1">
+		{{ crashData.offset }}
+	</div>
+	<div class="col-md-2">
+		{{ crashData.module }}
+	</div>
+	<div class="col-md-1">
+		{{ crashData.signal }}
+	</div>
+	<div class="col-md-3">
+		{{ crashData.time }}
+	</div>
 
+	<div class="col-md-1">
+		<a href="">Details</a>
 	</div>
 </div>
+<div class="row asanOutput">
+	<div class="cold-md-6">
+		{{ crashData.asanoutput }}
+	</div>
+	<div class="cold-md-6">
+	</div>
+</div>
+
+{% endfor %}
 
 {% endblock %}
