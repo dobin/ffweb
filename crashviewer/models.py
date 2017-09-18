@@ -17,7 +17,14 @@ class CrashData(models.Model):
     asanoutput = models.TextField()
     time = models.DateTimeField()
     stdout = models.TextField()
-    filename = models.CharField(max_length=1024)
+    backtrace = models.TextField()
+
+    stackoff = models.IntegerField()
+    stackaddr = models.IntegerField()
+    codeoff = models.IntegerField()
+    codeaddr = models.IntegerField()
+
+    registers = models.TextField()
 
     project = models.ForeignKey('Project', related_name='crashDataList', on_delete=models.CASCADE, null=True)
 

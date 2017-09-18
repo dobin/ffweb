@@ -15,7 +15,8 @@ class CrashDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = CrashData
         fields = ('pk', 'seed', 'offset', 'module', 'signal',
-                  'asanoutput', 'time', 'stdout', 'filename',
+                  'asanoutput', 'time', 'stdout', 'backtrace', 'registers',
+                  'stackoff', 'stackaddr', 'codeoff', 'codeaddr',
                   'project', 'messageList')
 
     def create(self, validated_data):

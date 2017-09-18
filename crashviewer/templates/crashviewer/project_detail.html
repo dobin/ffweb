@@ -1,7 +1,19 @@
 {% extends 'crashviewer/base.html' %}
-
+{% load crashviewer_filters %}
 
 {% block content %}
+
+<script>
+function myFunction(idx) {
+	div = 'mydiv' + idx
+    var x = document.getElementById(div);
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
 
 <div class="row">
 	<div>
@@ -13,17 +25,54 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-md-2">
+		Seed
+	</div>
+	<div class="col-md-2">
+		Module
+	</div>
+	<div class="col-md-1">
+		Code Offset
+	</div>
+	<div class="col-md-1">
+		Code Addr
+	</div>
+	<div class="col-md-1">
+		Stack Base
+	</div>
+
+	<div class="col-md-1">
+		Signal
+	</div>
+	<div class="col-md-3">
+		Time
+	</div>
+
+	<div class="col-md-1">
+
+	</div>
+</div>
+
 {% for crashData in crashDataList %}
 <div class="row">
 	<div class="col-md-2">
 		{{ crashData.seed }}
 	</div>
-	<div class="col-md-1">
-		{{ crashData.offset }}
-	</div>
 	<div class="col-md-2">
-		{{ crashData.module }}
+		{{ crashData.module|filenameof }}
 	</div>
+	<div class="col-md-1">
+		{{ crashData.codeoff|myhex }}
+	</div>
+
+	<div class="col-md-1">
+		{{ crashData.codeaddr|myhex }}
+	</div>
+	<div class="col-md-1">
+		{{ crashData.stackoff|myhex }}
+	</div>
+
 	<div class="col-md-1">
 		{{ crashData.signal }}
 	</div>
@@ -32,14 +81,19 @@
 	</div>
 
 	<div class="col-md-1">
-		<a href="">Details</a>
+
+	</div>
+
+	<div class="col-md-1">
+		<button onclick="myFunction({{crashData.pk}})">Info</button>
 	</div>
 </div>
-<div class="row asanOutput">
-	<div class="cold-md-6">
-		{{ crashData.asanoutput }}
+<div class="row crashDataDetails border-top" id="mydiv{{crashData.pk}}">
+	<div class="col-md-6 asanOutput">
+		{{ crashData.asanoutput|linebreaks }}
 	</div>
-	<div class="cold-md-6">
+	<div class="col-md-6">
+		{{ crashData.backtrace|linebreaks }}
 	</div>
 </div>
 
