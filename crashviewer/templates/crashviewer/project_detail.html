@@ -18,10 +18,17 @@ function myFunction(idx) {
 <div class="row">
 	<div class="col-md-12">
 		<div>
-			<h1><a href="{% url 'project_detail' pk=project.pk %}">
-				{{ project.name }}
-			</a></h1>
-			Comment: <p>{{ project.comment|linebreaksbr }}</p>
+			<h1>{{ project.name }}</h1>
+
+			<a href="{% url 'project_detail_u' pk=project.pk %}">
+				Unique
+			</a>
+			/
+			<a href="{% url 'project_detail' pk=project.pk %}">
+				Not Unique
+			</a>
+
+			<p>Comment: {{ project.comment|linebreaksbr }}</p>
 			<hr>
 		</div>
 	</div>

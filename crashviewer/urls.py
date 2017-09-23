@@ -10,6 +10,9 @@ urlpatterns = [
     url(r'^projects/(?P<pk>[0-9]+)$', views.project_detail,
         name='project_detail'),
 
+    url(r'^projects/(?P<pk>[0-9]+)/unique$', views.project_detail_u,
+        name='project_detail_u'),
+
     url(r'^api/projects/$', views.ProjectList.as_view()),
     url(r'^api/projects/(?P<pk>[0-9]+)$', views.ProjectDetail.as_view()),
 

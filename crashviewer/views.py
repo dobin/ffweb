@@ -26,6 +26,18 @@ def project_detail(request, pk):
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
 
+def project_detail_u(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    crashDataList = set()
+    tempSeeds = {}
+    crashDataListX = project.crashDataList.all()
+    for crashData in crashDataListX:
+        if crashData.seed not in tempSeeds:
+            tempSeeds[crashData.seed] = True
+            crashDataList.add(crashData)
+
+    return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
+
 
 class ProjectList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
