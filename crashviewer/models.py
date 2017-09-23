@@ -22,6 +22,9 @@ class CrashData(models.Model):
     fuzzerpos = models.CharField(max_length=16)
     reallydead = models.IntegerField()
 
+    cause = models.TextField()
+    cause_line = models.TextField()
+
     stackoff = models.IntegerField()
     stackaddr = models.IntegerField()
     codeoff = models.IntegerField()

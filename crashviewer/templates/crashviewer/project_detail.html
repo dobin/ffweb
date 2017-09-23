@@ -35,22 +35,19 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		Code Offset
 	</div>
+	<div class="col-md-2">
+		Pos / Ded / Sig
+	</div>
+
 	<div class="col-md-1">
 		Code Addr
 	</div>
 	<div class="col-md-1">
-		Stack Base
+		Cause
 	</div>
 
 	<div class="col-md-1">
-		Signal
-	</div>
-	<div class="col-md-3">
-
-	</div>
-
-	<div class="col-md-1">
-
+		Info
 	</div>
 </div>
 
@@ -65,23 +62,16 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		{{ crashData.codeoff|myhex }}
 	</div>
+	<div class="col-md-2">
+		{{ crashData.fuzzerpos }} / {{ crashData.reallydead }} / {{ crashData.signal }}
+	</div>
+
 
 	<div class="col-md-1">
 		{{ crashData.codeaddr|myhex }}
 	</div>
 	<div class="col-md-1">
-		{{ crashData.stackoff|myhex }}
-	</div>
-
-	<div class="col-md-1">
-		{{ crashData.signal }}
-	</div>
-	<div class="col-md-3">
-		{{ crashData.fuzzerpos }} / {{ crashData.reallydead }}
-	</div>
-
-	<div class="col-md-1">
-
+		{{ crashData.cause }}
 	</div>
 
 	<div class="col-md-1">
