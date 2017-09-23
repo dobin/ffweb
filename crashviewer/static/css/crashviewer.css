@@ -5,6 +5,12 @@ h1 {
     font-size: 2em;
 }
 
+
+.content {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .crashDataDetails {
     display: none;
     word-wrap: break-word;

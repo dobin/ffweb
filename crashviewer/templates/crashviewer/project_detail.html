@@ -7,21 +7,23 @@
 function myFunction(idx) {
 	div = 'mydiv' + idx
     var x = document.getElementById(div);
-    if (x.style.display === 'none') {
-        x.style.display = 'block';
-    } else {
+    if (x.style.display === 'block') {
         x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
     }
 }
 </script>
 
 <div class="row">
-	<div>
-		<h1><a href="{% url 'project_detail' pk=project.pk %}">
-			{{ project.name }}
-		</a></h1>
-		Comment: <p>{{ project.comment|linebreaksbr }}</p>
-		<hr>
+	<div class="col-md-12">
+		<div>
+			<h1><a href="{% url 'project_detail' pk=project.pk %}">
+				{{ project.name }}
+			</a></h1>
+			Comment: <p>{{ project.comment|linebreaksbr }}</p>
+			<hr>
+		</div>
 	</div>
 </div>
 
@@ -72,6 +74,10 @@ function myFunction(idx) {
 	</div>
 	<div class="col-md-1">
 		{{ crashData.cause }}
+	</div>
+
+	<div class="col-md-3">
+		{{ crashData.backtrace|linebreaks }}
 	</div>
 
 	<div class="col-md-1">
