@@ -19,6 +19,9 @@ class CrashData(models.Model):
     stdout = models.TextField()
     backtrace = models.TextField()
 
+    fuzzerpos = models.CharField(max_length=16)
+    reallydead = models.IntegerField()
+
     stackoff = models.IntegerField()
     stackaddr = models.IntegerField()
     codeoff = models.IntegerField()
