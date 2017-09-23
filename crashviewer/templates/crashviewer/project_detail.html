@@ -31,13 +31,13 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		Seed
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-1">
 		Module
 	</div>
 	<div class="col-md-1">
 		Code Offset
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-1">
 		Pos / Ded / Sig
 	</div>
 
@@ -58,13 +58,13 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		{{ crashData.seed|shortseed }}
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-1">
 		{{ crashData.module|filenameof }}
 	</div>
 	<div class="col-md-1">
 		{{ crashData.codeoff|myhex }}
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-1">
 		{{ crashData.fuzzerpos }} / {{ crashData.reallydead }} / {{ crashData.signal }}
 	</div>
 
@@ -76,7 +76,7 @@ function myFunction(idx) {
 		{{ crashData.cause }}
 	</div>
 
-	<div class="col-md-3">
+	<div class="col-md-4">
 		{{ crashData.backtrace|linebreaks }}
 	</div>
 
