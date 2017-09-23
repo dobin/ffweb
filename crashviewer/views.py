@@ -29,11 +29,11 @@ def project_detail(request, pk):
 def project_detail_u(request, pk):
     project = get_object_or_404(Project, pk=pk)
     crashDataList = set()
-    tempSeeds = {}
+    lookup = {}
     crashDataListX = project.crashDataList.all()
     for crashData in crashDataListX:
-        if crashData.seed not in tempSeeds:
-            tempSeeds[crashData.seed] = True
+        if crashData.backtrace not in lookup:
+            lookup[crashData.backtrace] = True
             crashDataList.add(crashData)
 
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
