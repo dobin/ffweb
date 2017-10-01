@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.filter(name='myhex')
 def myhex(value):
-    return str(value)
+    return hex(value)
 
 
 @register.filter(name='filenameof')

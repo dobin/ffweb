@@ -23,6 +23,13 @@ def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     crashDataList = project.crashDataList.all()
 
+    # add fuzzed msg index to crashData
+    for crashData in crashDataList:
+        for msg in crashData.messageList.all():
+            if msg.fuzzed == 1:
+                crashData.fuzzedMsgIdx = msg.index
+                break
+
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
 

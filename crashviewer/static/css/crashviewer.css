@@ -20,3 +20,7 @@ h1 {
 .asanOutput {
     border-right: 1px solid grey;
 }
+
+.msgfuzz1 {
+    color: red;
+}

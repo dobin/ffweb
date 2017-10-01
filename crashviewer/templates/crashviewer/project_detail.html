@@ -47,6 +47,9 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		Pos / Ded / Sig
 	</div>
+	<div class="col-md-1">
+		Msg Idx
+	</div>
 
 	<div class="col-md-1">
 		Code Addr
@@ -74,6 +77,9 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		{{ crashData.fuzzerpos }} / {{ crashData.reallydead }} / {{ crashData.signal }}
 	</div>
+	<div class="col-md-1">
+		{{ crashData.fuzzedMsgIdx }}
+	</div>
 
 
 	<div class="col-md-1">
@@ -96,7 +102,17 @@ function myFunction(idx) {
 		{{ crashData.asanoutput|linebreaks }}
 	</div>
 	<div class="col-md-6">
-		{{ crashData.backtrace|linebreaks }}
+		<table border="1" width="100%">
+		{% for msg in crashData.messageList.all %}
+			<tr>
+				<td>{{ msg.index }}</td>
+				<td>{{ msg.sentBy }}</td>
+				<td class="msgfuzz{{msg.fuzzed}}">
+					{{ msg.msg }}
+				</td>
+			</tr>
+		{% endfor %}
+		</table>
 	</div>
 </div>
 
