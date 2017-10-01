@@ -23,6 +23,14 @@ class CrashDataSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         messageList_data = validated_data.pop('messageList')
 
+        # if crashdata with the same seed exists, just delete
+        # it, so we can write it fresh and new.
+        # We dont want duplicates, but up to date data.
+        cds = CrashData.objects.filter(seed=validated_data.get('seed', None))
+        if len(cds) > 0:
+            for cd in cds:
+                cd.delete()
+
         crashData = CrashData.objects.create(**validated_data)
         for message in messageList_data:
             NetworkMessage.objects.create(crashData=crashData, **message)
