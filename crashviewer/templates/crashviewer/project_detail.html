@@ -108,7 +108,7 @@ function myFunction(idx) {
 				<td>{{ msg.index }}</td>
 				<td>{{ msg.sentBy }}</td>
 				<td class="msgfuzz{{msg.fuzzed}}">
-					{{ msg.msg }}
+					{{ msg.msg|myhexblong }}
 				</td>
 			</tr>
 		{% endfor %}
