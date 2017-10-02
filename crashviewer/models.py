@@ -6,6 +6,9 @@ from django.utils import timezone
 class Project(models.Model):
     name = models.TextField()
     comment = models.TextField()
+    commandline = models.TextField()
+    version = models.TextField()
+    fuzzingrun = models.TextField()
 
 
 # Has: NetworkMessage's
