@@ -43,6 +43,13 @@ def project_detail_u(request, pk):
             lookup[crashData.backtrace] = True
             crashDataList.add(crashData)
 
+    # add fuzzed msg index to crashData
+    for crashData in crashDataList:
+        for msg in crashData.messageList.all():
+            if msg.fuzzed == 1:
+                crashData.fuzzedMsgIdx = msg.index
+                break
+
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
 

@@ -20,12 +20,12 @@ function myFunction(idx) {
 		<div>
 			<h1>{{ project.name }}</h1>
 
-			<a href="{% url 'project_detail_u' pk=project.pk %}">
-				Unique
+			<a href="{% url 'project_detail' pk=project.pk %}">
+				All
 			</a>
 			/
-			<a href="{% url 'project_detail' pk=project.pk %}">
-				Not Unique
+			<a href="{% url 'project_detail_u' pk=project.pk %}">
+				Unique
 			</a>
 
 			<p>Comment: {{ project.comment|linebreaksbr }}</p>

@@ -18,7 +18,6 @@ def myhexblong(value):
     return hexdump.dump(value)
 
 
-
 @register.filter(name='filenameof')
 def filenameof(value):
     return os.path.basename(value)
