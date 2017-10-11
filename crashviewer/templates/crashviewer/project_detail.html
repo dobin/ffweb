@@ -23,10 +23,29 @@ function myFunction(idx) {
 			<a href="{% url 'project_detail' pk=project.pk %}">
 				All
 			</a>
+
+			<a href="{% url 'project_detail' pk=project.pk %}?maxbt=3">
+				3
+			</a>
+			<a href="{% url 'project_detail' pk=project.pk %}?maxbt=5">
+				5
+			</a>
+
 			/
 			<a href="{% url 'project_detail_u' pk=project.pk %}">
 				Unique
 			</a>
+
+			<a href="{% url 'project_detail_u' pk=project.pk %}?maxbt=3">
+				3
+			</a>
+			<a href="{% url 'project_detail_u' pk=project.pk %}?maxbt=5">
+				5
+			</a>
+
+
+			<br>
+
 
 			<p>Comment: {{ project.comment|linebreaksbr }}</p>
 			<hr>

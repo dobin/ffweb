@@ -7,6 +7,7 @@ urlpatterns = [
 
     url(r'^projects/$', views.project_overview,
         name="project_overview"),
+
     url(r'^projects/(?P<pk>[0-9]+)$', views.project_detail,
         name='project_detail'),
 

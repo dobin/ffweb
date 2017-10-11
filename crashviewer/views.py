@@ -14,6 +14,15 @@ from .models import Project
 from .models import CrashData
 
 
+
+def find_nth(haystack, needle, n):
+    start = haystack.find(needle)
+    while start >= 0 and n > 1:
+        start = haystack.find(needle, start + len(needle))
+        n -= 1
+    return start
+
+
 def project_overview(request):
     projects = Project.objects.order_by('name')
     return render(request, 'crashviewer/project_overview.html', { 'projects': projects})
@@ -23,12 +32,19 @@ def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     crashDataList = project.crashDataList.all()
 
+    maxBacktraceIndex = 3
+    maxBtParam = request.GET.get('maxbt')
+    if maxBtParam is not None:
+        maxBacktraceIndex = int(maxBtParam)
+
     # add fuzzed msg index to crashData
     for crashData in crashDataList:
         for msg in crashData.messageList.all():
             if msg.fuzzed == 1:
                 crashData.fuzzedMsgIdx = msg.index
                 break
+
+        crashData.backtrace = crashData.backtrace[0:find_nth(crashData.backtrace, "\n", maxBacktraceIndex)]
 
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
@@ -37,6 +53,12 @@ def project_detail_u(request, pk):
     project = get_object_or_404(Project, pk=pk)
     crashDataList = set()
     lookup = {}
+
+    maxBacktraceIndex = 3
+    maxBtParam = request.GET.get('maxbt')
+    if maxBtParam is not None:
+        maxBacktraceIndex = int(maxBtParam)
+
     crashDataListX = project.crashDataList.all()
     for crashData in crashDataListX:
         if crashData.backtrace not in lookup:
@@ -49,6 +71,7 @@ def project_detail_u(request, pk):
             if msg.fuzzed == 1:
                 crashData.fuzzedMsgIdx = msg.index
                 break
+        crashData.backtrace = crashData.backtrace[0:find_nth(crashData.backtrace, "\n", maxBacktraceIndex)]
 
     return render(request, 'crashviewer/project_detail.html', {'project': project, 'crashDataList': crashDataList})
 
