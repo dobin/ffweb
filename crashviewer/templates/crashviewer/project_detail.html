@@ -57,11 +57,8 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		Seed
 	</div>
-	<div class="col-md-1">
-		Module
-	</div>
-	<div class="col-md-1">
-		Code Offset
+	<div class="col-md-2">
+		Code Addr
 	</div>
 	<div class="col-md-1">
 		Pos / Ded / Sig
@@ -71,14 +68,14 @@ function myFunction(idx) {
 	</div>
 
 	<div class="col-md-1">
-		Code Addr
-	</div>
-	<div class="col-md-1">
 		Cause
 	</div>
 
+	<div class="col-md-5">
+		Backtrace
+	</div>
 	<div class="col-md-1">
-		Info
+
 	</div>
 </div>
 
@@ -87,11 +84,9 @@ function myFunction(idx) {
 	<div class="col-md-1">
 		{{ crashData.seed|shortseed }}
 	</div>
-	<div class="col-md-1">
-		{{ crashData.module|filenameof }}
-	</div>
-	<div class="col-md-1">
-		{{ crashData.codeoff|myhex }}
+	<div class="col-md-2">
+		{{ crashData.codeoff|myhex }} /
+		{{ crashData.codeaddr|myhex }}
 	</div>
 	<div class="col-md-1">
 		{{ crashData.fuzzerpos }} / {{ crashData.reallydead }} / {{ crashData.signal }}
@@ -100,15 +95,11 @@ function myFunction(idx) {
 		{{ crashData.fuzzedMsgIdx }}
 	</div>
 
-
-	<div class="col-md-1">
-		{{ crashData.codeaddr|myhex }}
-	</div>
 	<div class="col-md-1">
 		{{ crashData.cause }}
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-md-5">
 		{{ crashData.backtrace|linebreaks }}
 	</div>
 
@@ -117,10 +108,16 @@ function myFunction(idx) {
 	</div>
 </div>
 <div class="row crashDataDetails border-top" id="mydiv{{crashData.pk}}">
-	<div class="col-md-6 asanOutput">
+	<div class="col-md-2 asanOutput">
 		{{ crashData.asanoutput|linebreaks }}
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-2 asanOutput">
+		{{ crashData.gdboutput|linebreaks }}
+	</div>
+	<div class="col-md-2 asanOutput">
+		{{ crashData.stdout|linebreaks }}
+	</div>
+	<div class="col-md-4">
 		<table border="1" width="100%">
 		{% for msg in crashData.messageList.all %}
 			<tr>

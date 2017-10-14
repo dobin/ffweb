@@ -14,26 +14,23 @@ class Project(models.Model):
 # Has: NetworkMessage's
 class CrashData(models.Model):
     seed = models.CharField(max_length=64)
+
     offset = models.IntegerField()
-    module = models.CharField(max_length=1024)
-    signal = models.IntegerField()
-    asanoutput = models.TextField(blank=True)
     time = models.DateTimeField()
-    stdout = models.TextField()
-    backtrace = models.TextField()
+    signal = models.IntegerField()
 
     fuzzerpos = models.CharField(max_length=16)
     reallydead = models.IntegerField()
 
-    cause = models.TextField()
-    cause_line = models.TextField()
+    stdout = models.TextField(blank=True)
+    asanoutput = models.TextField(blank=True)
+    gdboutput = models.TextField(blank=True)
+    backtrace = models.TextField()
 
-    stackoff = models.IntegerField()
-    stackaddr = models.IntegerField()
+    cause = models.TextField()
+    cause_line = models.TextField(blank=True)
     codeoff = models.IntegerField()
     codeaddr = models.IntegerField()
-
-    registers = models.TextField()
 
     project = models.ForeignKey('Project', related_name='crashDataList', on_delete=models.CASCADE, null=True)
 

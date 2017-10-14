@@ -14,10 +14,10 @@ class CrashDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CrashData
-        fields = ('pk', 'seed', 'offset', 'module', 'signal',
-                  'asanoutput', 'time', 'stdout', 'backtrace', 'registers',
-                  'stackoff', 'stackaddr', 'codeoff', 'codeaddr', 'fuzzerpos',
-                  'reallydead', 'cause', 'cause_line',
+        fields = ('pk', 'seed', 'offset', 'signal',
+                  'asanoutput', 'time', 'stdout', 'backtrace',
+                  'codeoff', 'codeaddr', 'fuzzerpos',
+                  'reallydead', 'cause', 'cause_line', 'gdboutput',
                   'project', 'messageList')
 
     def create(self, validated_data):
