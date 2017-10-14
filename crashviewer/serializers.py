@@ -14,7 +14,7 @@ class CrashDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CrashData
-        fields = ('pk', 'seed', 'offset', 'signal',
+        fields = ('pk', 'seed', 'signal',
                   'asanoutput', 'time', 'stdout', 'backtrace',
                   'codeoff', 'codeaddr', 'fuzzerpos',
                   'reallydead', 'cause', 'cause_line', 'gdboutput',

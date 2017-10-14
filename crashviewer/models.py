@@ -15,7 +15,6 @@ class Project(models.Model):
 class CrashData(models.Model):
     seed = models.CharField(max_length=64)
 
-    offset = models.IntegerField()
     time = models.DateTimeField()
     signal = models.IntegerField()
 
@@ -29,7 +28,7 @@ class CrashData(models.Model):
 
     cause = models.TextField()
     cause_line = models.TextField(blank=True)
-    codeoff = models.IntegerField()
+    codeoff = models.IntegerField(blank=True)
     codeaddr = models.IntegerField()
 
     project = models.ForeignKey('Project', related_name='crashDataList', on_delete=models.CASCADE, null=True)
