@@ -108,14 +108,11 @@ function myFunction(idx) {
 	</div>
 </div>
 <div class="row crashDataDetails border-top" id="mydiv{{crashData.pk}}">
-	<div class="col-md-2 asanOutput">
+	<div class="col-md-4 asanOutput">
 		{{ crashData.asanoutput|linebreaks }}
 	</div>
-	<div class="col-md-2 asanOutput">
+	<div class="col-md-4 asanOutput">
 		{{ crashData.gdboutput|linebreaks }}
-	</div>
-	<div class="col-md-2 asanOutput">
-		{{ crashData.stdout|linebreaks }}
 	</div>
 	<div class="col-md-4">
 		<table border="1" width="100%">

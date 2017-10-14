@@ -15,7 +15,15 @@ def myhex(value):
 @register.filter(name='myhexblong')
 def myhexblong(value):
     value = base64.b64decode(value)
-    return hexdump.dump(value)
+
+    if len(value) > 64:
+        value = value[:64]
+        value = hexdump.dump(value)
+        value += " .."
+    else:
+        value = hexdump.dump(value)
+
+    return value
 
 
 @register.filter(name='filenameof')
