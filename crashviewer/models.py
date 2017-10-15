@@ -10,6 +10,9 @@ class Project(models.Model):
     version = models.TextField()
     fuzzingrun = models.TextField()
 
+    def __str__(self):
+        return self.name
+
 
 # Has: NetworkMessage's
 class CrashData(models.Model):
@@ -36,6 +39,9 @@ class CrashData(models.Model):
     class Meta:
         ordering = ('time',)
 
+    def __str__(self):
+        return self.seed
+
 
 class NetworkMessage(models.Model):
     crashData = models.ForeignKey('CrashData', related_name="messageList", on_delete=models.CASCADE, null=True)
@@ -43,3 +49,6 @@ class NetworkMessage(models.Model):
     sentBy = models.CharField(max_length=16)
     msg = models.TextField()
     fuzzed = models.IntegerField()
+
+    def __str__(self):
+        return self.pk
