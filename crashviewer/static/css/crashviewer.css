@@ -5,6 +5,12 @@ h1 {
     font-size: 2em;
 }
 
+.page-header {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+}
+
 
 .content {
     margin-left: 10px;
@@ -15,6 +21,8 @@ h1 {
     display: none;
     word-wrap: break-word;
     border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    font-family: monospace;
 }
 
 .asanOutput {
@@ -23,4 +31,8 @@ h1 {
 
 .msgfuzz1 {
     color: red;
+}
+
+.moreleft {
+    margin-left: 20px;
 }

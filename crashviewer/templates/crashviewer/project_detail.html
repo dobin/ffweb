@@ -23,31 +23,32 @@ function myFunction(idx) {
 			<a href="{% url 'project_detail' pk=project.pk %}">
 				All
 			</a>
-
-			<a href="{% url 'project_detail' pk=project.pk %}?maxbt=3">
-				3
-			</a>
+			/
 			<a href="{% url 'project_detail' pk=project.pk %}?maxbt=5">
 				5
 			</a>
-
 			/
+			<a href="{% url 'project_detail' pk=project.pk %}?maxbt=7">
+				7
+			</a>
+
+			|
 			<a href="{% url 'project_detail_u' pk=project.pk %}">
 				Unique
 			</a>
-
-			<a href="{% url 'project_detail_u' pk=project.pk %}?maxbt=3">
-				3
-			</a>
+			/
 			<a href="{% url 'project_detail_u' pk=project.pk %}?maxbt=5">
 				5
 			</a>
-
+			/
+			<a href="{% url 'project_detail_u' pk=project.pk %}?maxbt=7">
+				7
+			</a>
 
 			<br>
-
-
-			<p>Comment: {{ project.comment|linebreaksbr }}</p>
+			Comment: {{ project.comment }}<br>
+			Commandline: {{ project.commandline }}<br>
+			Version: {{ project.version }}<br>
 			<hr>
 		</div>
 	</div>
@@ -107,25 +108,44 @@ function myFunction(idx) {
 		<button onclick="myFunction({{crashData.pk}})">Info</button>
 	</div>
 </div>
-<div class="row crashDataDetails border-top" id="mydiv{{crashData.pk}}">
-	<div class="col-md-4 asanOutput">
-		{{ crashData.asanoutput|linebreaks }}
+
+<div class="row crashDataDetails" id="mydiv{{crashData.pk}}">
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#asan{{crashData.pk}}">ASAN</a></li>
+				<li><a data-toggle="tab" href="#gdb{{crashData.pk}}">GDB</a></li>
+				<li><a data-toggle="tab" href="#msgs{{crashData.pk}}">Network Messages</a></li>
+			</ul>
+		</div>
 	</div>
-	<div class="col-md-4 asanOutput">
-		{{ crashData.gdboutput|linebreaks }}
-	</div>
-	<div class="col-md-4">
-		<table border="1" width="100%">
-		{% for msg in crashData.messageList.all %}
-			<tr>
-				<td>{{ msg.index }}</td>
-				<td>{{ msg.sentBy }}</td>
-				<td class="msgfuzz{{msg.fuzzed}}">
-					{{ msg.msg|myhexblong }}
-				</td>
-			</tr>
-		{% endfor %}
-		</table>
+
+	<div class="row">
+		<div class="col-md-12">
+		    <div class="tab-content moreleft">
+				<div id="asan{{crashData.pk}}" class="tab-pane fade in active">
+					{{ crashData.asanoutput|linebreaks }}
+				</div>
+
+				<div id="gdb{{crashData.pk}}" class="tab-pane fade">
+					{{ crashData.gdboutput|linebreaks }}
+				</div>
+
+				<div id="msgs{{crashData.pk}}" class="tab-pane fade">
+					<table border="1" width="100%">
+					{% for msg in crashData.messageList.all %}
+						<tr>
+							<td>{{ msg.index }}</td>
+							<td>{{ msg.sentBy }}</td>
+							<td class="msgfuzz{{msg.fuzzed}}">
+								{{ msg.msg|myhexblong }}
+							</td>
+						</tr>
+					{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

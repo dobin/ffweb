@@ -1,21 +1,27 @@
 {% load staticfiles %}
 <head>
+	<title> Fuzzing For Worms </title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="{% static 'css/crashviewer.css' %}">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<html>
     <div class="page-header">
-        <a href="/">FFWeb Crashviewer</a>
+		<img src="{% static "pics/logo.png" %}" height=20px />
+        <a href="/">Fuzzing For Worms</a>
+		|
+		<a href="/">Crashviewer</a>
     </div>
     <div class="content ">
-        <div class="row">
-            <div class="col-md-12">
             {% block content %}
             {% endblock %}
-            </div>
-        </div>
     </div>
 </body>
