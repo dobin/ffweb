@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-5znah#=)%wo=xi$xec%hj!_^b@=6u%htvtam9htdg=22_jok0'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '-5znah#=)%wo=xi$xec%hj!_^b@=6u%htvtam9htdg=22_jok0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = [ u'10.0.3.105', 'localhost' ]
+ALLOWED_HOSTS = [ u'10.0.3.105', 'localhost', '192.168.1.238' ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
@@ -33,7 +33,6 @@ REST_FRAMEWORK = {
 }
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crashviewer',
+    'ffweb',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ffweb.urls'
